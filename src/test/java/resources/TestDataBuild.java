@@ -1,31 +1,25 @@
 package resources;
 
-import java.util.ArrayList;
-import java.util.List;
+import static io.restassured.RestAssured.given;
 
-import pojo.AddPlace;
-import pojo.Location;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
+
+import io.restassured.RestAssured;
+
 
 public class TestDataBuild {
-	public AddPlace addPlacePayload(String name, String language, String address) {
-		AddPlace p = new AddPlace();
-		p.setAccuracy(50);
-		p.setAddress(address);
-		p.setLanguage(language);
-		p.setPhone_number("(+91) 983 893 3937");
-		p.setWebsite("https://rahulshettyacademy.com");
-		p.setName(name);
-		List<String> myList = new ArrayList<String>();
-		myList.add("shoe park");
-		myList.add("shop");
+	
+	public static String Add(String path) throws IOException {
+		RestAssured.baseURI = "https://reqres.in/";
+		String response = given().log().all().body(new String(Files.readAllBytes(Paths.get(path)))).when()
+				.post("/api/users").then().log().all().assertThat().statusCode(201).extract().response().asString();
+		return response;
 
-		p.setTypes(myList);
-		Location l = new Location();
-		l.setLat(-38.383494);
-		l.setLng(33.427362);
-		p.setLocation(l);
 		
-		return p;
+		
 	}
 
 }
