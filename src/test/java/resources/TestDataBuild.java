@@ -7,7 +7,6 @@ import pojo.AddPlace;
 import pojo.Location;
 
 public class TestDataBuild {
-	
 	public AddPlace addPlacePayload(String name, String language, String address) {
 		AddPlace p = new AddPlace();
 		p.setAccuracy(50);
@@ -28,8 +27,5 @@ public class TestDataBuild {
 		
 		return p;
 	}
-	
-	public String deleteBuildPayload(String placeId) {
-		return "{\r\n    \"place_id\": \""+ placeId +"\"\r\n}";
-	}
+
 }
